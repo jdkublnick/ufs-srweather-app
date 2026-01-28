@@ -1339,7 +1339,7 @@ POINT_SOURCE Configuration Parameters
 ------------------------------------------------
 Non-default parameters for the ``task_point_source`` tasks are set in the ``task_point_source:`` section of the ``config.yaml`` file.
 
-``PT_SRC_SUBDIR``: (Default: ``"NEI2016v1/v2023-01-PT"``)
+``PT_SRC_SUBDIR``: (Default: ``"NEMO/NEI2019/v2023-03/PT"``)
    Subdirectory structure of point source data under ``FIXemis``.
    Full path: ``FIXemis/PT_SRC_SUBDIR``
 
@@ -2079,6 +2079,15 @@ Non-default parameters for coupled Air Quality Modeling (AQM) tasks are set in t
 ``NEXUS_GFS_SFC_ARCHV_DIR``:  (Default: "/NCEPPROD/hpssprod/runhistory")
    Path to archive directory for gfs surface files on HPSS.
 
+``USE_AQM_S3_DATA_STAGE``: (Default: false)
+   If true, update time-varying data paths to use the UFS-AQM S3 data stage configuration as downloaded by the AQM Data Sync utility.
+
+``USE_FIX_AQM_S3_DATA_STAGE``: (Default: false)
+   If true, update fixed file data paths to use the UFS-AQM S3 data stage configuration as downloaded by the AQM Data Sync utility.
+
+``AQM_STAGE_DST_DIR``: (Default: null)
+   The root/destination directory containing the UFS-AQM S3 data stage. This directory is the destination directory for a download operation using the AQM Data Sync utility.
+
 .. _smoke-dust-parameters:
 
 Smoke and Dust Configuration Parameters
@@ -2227,6 +2236,16 @@ Non-default parameters for the Community Fire Behavior Model (CFBM) in SRW are s
 
 ``FIRE_IGNITION_END_TIME`` (Default: 7000)
    End time of ignition(s) in seconds (counting from the beginning of the simulation)
+
+.. _melodies-monet-parameters:
+
+MELODIES MONET Configuration Parameters
+========================================
+
+Non-default parameters for MELODIES MONET post-processing are set in the ``melodies_monet_parm:`` section of the ``config.yaml`` file. MELODIES MONET (Model EvaLuation using Obs, DIagnostics and Emulators for Studies - Model Observing Network Evaluation Toolkit) is a framework for evaluating atmospheric composition models.
+
+``aqm.active``: (Default: false)
+   Flag to enable AQM evaluation with MELODIES MONET. When set to true, activates MELODIES MONET post-processing for air quality model output.
 
 
 Rocoto Parameters
