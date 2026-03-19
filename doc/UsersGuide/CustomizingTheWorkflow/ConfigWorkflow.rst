@@ -1339,7 +1339,7 @@ POINT_SOURCE Configuration Parameters
 ------------------------------------------------
 Non-default parameters for the ``task_point_source`` tasks are set in the ``task_point_source:`` section of the ``config.yaml`` file.
 
-``PT_SRC_SUBDIR``: (Default: ``"NEI2016v1/v2023-01-PT"``)
+``PT_SRC_SUBDIR``: (Default: ``"NEMO/NEI2019/v2023-03/PT"``)
    Subdirectory structure of point source data under ``FIXemis``.
    Full path: ``FIXemis/PT_SRC_SUBDIR``
 
@@ -2078,6 +2078,44 @@ Non-default parameters for coupled Air Quality Modeling (AQM) tasks are set in t
 
 ``NEXUS_GFS_SFC_ARCHV_DIR``:  (Default: "/NCEPPROD/hpssprod/runhistory")
    Path to archive directory for gfs surface files on HPSS.
+
+``USE_AQM_S3_DATA_STAGE``: (Default: false)
+   If true, update time-varying data paths to use the UFS-AQM S3 data stage configuration as
+   downloaded by the AQM Data Sync utility.
+
+``USE_FIX_AQM_S3_DATA_STAGE``: (Default: false)
+   If true, update fixed file data paths to use the UFS-AQM S3 data stage configuration as
+   downloaded by the AQM Data Sync utility.
+
+``AQM_STAGE_DST_DIR``: (Default: null)
+   The root/destination directory containing the UFS-AQM S3 data stage. This directory is the
+   destination directory for a download operation using the AQM Data Sync utility.
+
+MELODIES-MONET Configuration Parameters
+--------------------------------------
+
+Non-default parameters for MELODIES-MONET tasks are set in the ``task_mm_prep:`` and
+``task_mm_run:`` sections of the ``config.yaml`` file.
+
+``MM_OUTPUT_DIR``: (Default: null)
+   Output directory for MELODIES-MONET-generated model evaluation plots and statistics.
+
+``MM_EVAL_PACKAGES``: (Default: ``[chem]``)
+   Evaluation packages to initialize and run.
+
+``MM_BASE_MODEL_EXPT_DIR``: (Default: null)
+   If set to another SRW experiment path, MELODIES-MONET will generate scorecards for model
+   inter-comparison.
+
+``MM_OBS_AIRNOW_FN_TEMPLATE``: (Default: null)
+   Path, optionally with wildcards, selecting the AirNow observation files used by
+   MELODIES-MONET. For example: ``/staged/obs/Observations/AirNow/AirNow_2023*.nc``
+
+``MM_EVAL_TASKS_SINGLE_MODEL``: (Default: ``["timeseries", "taylor", "spatial_bias", "spatial_overlay", "boxplot", "multi_boxplot", "csi", "stats"]``)
+   Evaluation tasks available for a single-model run.
+
+``MM_EVAL_TASKS_MULTI_MODEL``: (Default: ``["timeseries", "taylor", "spatial_bias", "spatial_overlay", "boxplot", "multi_boxplot", "csi", "stats", "scorecard_rmse", "scorecard_ioa", "scorecard_nmb", "scorecard_nme"]``)
+   Evaluation tasks available when ``MM_BASE_MODEL_EXPT_DIR`` is set for model inter-comparison.
 
 .. _smoke-dust-parameters:
 
