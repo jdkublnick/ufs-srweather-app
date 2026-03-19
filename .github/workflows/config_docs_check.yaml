@@ -47,14 +47,17 @@ jobs:
             --report-file config-docs-report.md
 
       - name: Update PR comment
-        if: ${{ github.event_name == 'pull_request' && steps.config_doc_check.outcome == 'failure' }}
+        if: ${{ github.event_name == 'pull_request' }}
         uses: actions/github-script@v7
+        env:
+          CHECK_OUTCOME: ${{ steps.config_doc_check.outcome }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             const body = fs.readFileSync('config-docs-report.md', 'utf8');
-            const marker = '<!-- configworkflow-doc-check -->';
+            const marker = '<!-- configworkflow-doc-bot -->';
+            const outcome = process.env.CHECK_OUTCOME;
             const { owner, repo } = context.repo;
             const issue_number = context.issue.number;
 
@@ -69,18 +72,27 @@ jobs:
               comment.user.type === 'Bot' && comment.body && comment.body.includes(marker)
             );
 
-            if (existing) {
+            if (outcome === 'failure') {
+              if (existing) {
+                await github.rest.issues.updateComment({
+                  owner,
+                  repo,
+                  comment_id: existing.id,
+                  body,
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number,
+                  body,
+                });
+              }
+            } else if (existing) {
               await github.rest.issues.updateComment({
                 owner,
                 repo,
                 comment_id: existing.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number,
                 body,
               });
             }

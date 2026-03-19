@@ -14,7 +14,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 SAFE_DIRECTORY = REPO_ROOT.as_posix()
 CONFIG_PATH = Path("ush/config_defaults.yaml")
 DOC_PATH = Path("doc/UsersGuide/CustomizingTheWorkflow/ConfigWorkflow.rst")
-COMMENT_MARKER = "<!-- configworkflow-doc-check -->"
+COMMENT_MARKER = "<!-- configworkflow-doc-bot -->"
 VAR_LINE_RE = re.compile(r"^[+-](?![+-])\s*([A-Z][A-Z0-9_]+):\s*(.*?)\s*$")
 
 
@@ -174,7 +174,7 @@ def render_report(
 
     lines = [
         COMMENT_MARKER,
-        "## Config/Doc Sync Check",
+        "## Config Docs Bot",
         "",
         f"Compared `{CONFIG_PATH}` against `{DOC_PATH}` using base ref `{base_ref}`.",
         "",
