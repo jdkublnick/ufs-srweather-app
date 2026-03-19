@@ -237,6 +237,15 @@ def render_report(
         lines.append("```")
         lines.append("")
 
+    lines.extend(
+        [
+            "### Next Step",
+            "",
+            "Add the `autofix-config-docs` label on this PR if you want the bot to apply the conservative doc autofix.",
+            "",
+        ]
+    )
+
     return "\n".join(lines), True
 
 
